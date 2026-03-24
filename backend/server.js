@@ -1,8 +1,10 @@
 // 1. Import our tools
+require('dotenv').config();
+console.log("Checking for Secret:", process.env.JWT_SECRET);
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // Loads our hidden environment variables
+ // Loads our hidden environment variables
 
 // 2. Initialize the Express app
 const app = express();
@@ -12,6 +14,8 @@ app.use(cors()); // Allow requests from our React app
 app.use(express.json()); // Allow our server to understand JSON data from React
 
 const habitRoutes = require('./routes/habitRoutes');
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
 app.use('/api/habits', habitRoutes);
 
 // 4. Connect to MongoDB
